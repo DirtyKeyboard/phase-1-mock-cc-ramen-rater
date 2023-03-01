@@ -104,4 +104,17 @@ form h4 {
 #del-btn
 {
   align: top;
+  cursor:pointer;
+  
+}
+
+#bdiv
+{
+  padding-right: 10px
+}
+
+#del-btn:hover
+{
+  background-color:darkgray;
+  color: white;
 }

@@ -35,15 +35,38 @@ function run()
 }
 //Click on an image from the #ramen-menu div and see all the info about that ramen displayed inside the 
 //#ramen-detail div and where it says insert comment here and insert rating here.
-function showRamen(ramen)
+function handleDelete(e)
 {
+    const response = confirm("You are about to delete this item from the server, are you sure?");
+    if (response)
+    {
+        fetch(`http://localhost:3000/ramens/${e.target.dataset.id}`, {method: 'DELETE'})
+        .then(e => {if (e.ok)
+                    alert('Delete successful')
+                    else
+                    alert('ERROR deleting this element.')
+                })
+        location.reload();
+    }
+}
+
+function showRamen(ramen)
+{ 
     const imgCont = document.getElementById('ramen-menu')
     const rImg = document.createElement('img')
-    const del = document.createElement('button')
+    const del = document.createElement('input')
+    const bDiv = document.createElement('div')
+    bDiv.id = 'bdiv'
+    del.type = 'button'
+    del.value = 'X'
+    del.dataset.id = ramen.id;
+    del.id = 'del-btn'
+    del.addEventListener('click', (e) => handleDelete(e))
     rImg.src = ramen.image
     rImg.dataset.id = ramen.id;
     rImg.addEventListener('click', handleClick)
-    imgCont.append(rImg)
+    bDiv.append(del)
+    imgCont.append(rImg, bDiv)
 }
 
 function handleClick(e)
@@ -70,4 +93,4 @@ function handleClick(e)
     })
 }
 
-//completed at 10:45
+//10:45
